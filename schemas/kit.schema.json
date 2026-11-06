@@ -1,0 +1,128 @@
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/duels-kits/schemas/kit.schema.json",
+  "title": "Duels Kit",
+  "description": "Kit configuration for Dragonfly servers",
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "id",
+    "name",
+    "version",
+    "items",
+    "armour"
+  ],
+
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/item"
+      }
+    },
+    "armour": {
+      "$ref": "#/$defs/armour"
+    }
+  },
+
+  "$defs": {
+    "tier": {
+      "type": "string",
+      "enum": [
+        "wood",
+        "stone",
+        "iron",
+        "gold",
+        "diamond",
+        "netherite"
+      ]
+    },
+
+    "enchantments": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "count"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tier": {
+          "$ref": "#/$defs/tier"
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "enchantments": {
+          "$ref": "#/$defs/enchantments"
+        }
+      }
+    },
+
+    "armourPiece": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tier"
+      ],
+      "properties": {
+        "tier": {
+          "$ref": "#/$defs/tier"
+        },
+        "enchantments": {
+          "$ref": "#/$defs/enchantments"
+        }
+      }
+    },
+
+    "armour": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "helmet": {
+          "$ref": "#/$defs/armourPiece"
+        },
+        "chestplate": {
+          "$ref": "#/$defs/armourPiece"
+        },
+        "leggings": {
+          "$ref": "#/$defs/armourPiece"
+        },
+        "boots": {
+          "$ref": "#/$defs/armourPiece"
+        }
+      }
+    }
+  }
+}
