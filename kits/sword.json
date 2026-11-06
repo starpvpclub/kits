@@ -6,7 +6,7 @@
 
   "items": [
     {
-      "type": "sword",
+      "type": "Sword",
       "tier": "diamond",
       "count": 1,
       "enchantments": {
